@@ -1,0 +1,2 @@
+﻿[dotenv@17.2.3] injecting env (6) from .env -- tip: ≡ƒ¢á∩╕Å  run anywhere with `dotenvx run -- yourcommand`
+[{"id":2,"user_id":2,"name":"ramesh","village":"mallepalli","age":34,"amount":"40000.00","rate":"3.00","rate_unit":"month","given_at":"2025-06-10T18:30:00.000Z","created_at":"2026-02-02T17:41:34.000Z"}]

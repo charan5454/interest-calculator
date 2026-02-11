@@ -1,0 +1,9 @@
+﻿[dotenv@17.2.3] injecting env (6) from .env -- tip: ≡ƒöæ add access controls to secrets: https://dotenvx.com/ops
+--- DB & AUTH VERIFICATION ---
+node : VERIFICATION ERROR: 
+At line:1 char:1
++ node verify_backend.js > verify_out.txt 2>&1; Get-Content verify_out. ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (VERIFICATION ERROR: :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

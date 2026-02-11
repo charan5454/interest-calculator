@@ -1,0 +1,14 @@
+﻿[dotenv@17.2.3] injecting env (6) from .env -- tip: ≡ƒ¢á∩╕Å  run anywhere with `dotenvx run -- yourcommand`
+--- MINIMAL DB VERIFY ---
+VERIFY ERROR: 
+Error
+    at Object.createConnectionPromise [as createConnection] (C:\Users\kanam\OneDrive\Antigravity Codes\interest-calculator\node_modules\mysql2\promise.js:19:31)
+    at minimalVerify (C:\Users\kanam\OneDrive\Antigravity Codes\interest-calculator\minimal_verify.js:7:40)
+    at Object.<anonymous> (C:\Users\kanam\OneDrive\Antigravity Codes\interest-calculator\minimal_verify.js:33:1)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)

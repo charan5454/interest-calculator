@@ -1,0 +1,9 @@
+Starting setup...
+Connection params: {"host":"localhost","user":"root","database":"interest_calculator"}
+Connected to server.
+Database 'interest_calculator' created or checks out.
+Changed to target database.
+Users table ready.
+History table ready.
+Borrowers table ready.
+Setup finished.

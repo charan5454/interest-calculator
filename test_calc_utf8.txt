@@ -1,0 +1,5 @@
+﻿Start: 2025-11-06
+End: 2026-02-03
+Diff: { years: 0, months: 2, days: 28 }
+Total Months: 2.9333333333333336
+Interest: 3520

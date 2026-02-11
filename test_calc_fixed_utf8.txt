@@ -1,0 +1,6 @@
+﻿Start: 2025-11-06
+End: 2026-02-03
+Days Diff: 89
+Calendar Diff: 0y 2m 28d
+Total Months (Days/30): 2.966666666666667
+Interest: 3560
