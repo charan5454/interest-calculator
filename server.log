@@ -1,0 +1,4 @@
+[2026-02-03T04:23:04.853Z] LOG: Server running on http://localhost:3001
+[2026-02-03T04:23:04.875Z] ERROR: Database connection failed: 
+[2026-02-03T04:23:04.878Z] ERROR: Please check your .env file credentials.
+[2026-02-03T04:23:04.880Z] ERROR: DATABASE CONNECTION FAILED ON STARTUP: 
