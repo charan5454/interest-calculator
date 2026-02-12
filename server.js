@@ -193,6 +193,25 @@ app.put('/api/borrowers/:id', authenticateToken, upload.single('evidence'), asyn
     }
 });
 
+// Update Borrower Status (Repaid or not)
+app.patch('/api/borrowers/:id/status', authenticateToken, async (req, res) => {
+    const { id } = req.params;
+    const { isRepaid } = req.body;
+
+    try {
+        const ownerCheck = await db.query('SELECT id FROM borrowers WHERE id = $1 AND user_id = $2', [id, req.user.id]);
+        if (ownerCheck.rows.length === 0) {
+            return res.status(403).json({ error: 'Not authorized to update this borrower' });
+        }
+
+        await db.query('UPDATE borrowers SET is_repaid = $1 WHERE id = $2 AND user_id = $3', [isRepaid, id, req.user.id]);
+        res.json({ message: 'Status updated successfully' });
+    } catch (err) {
+        console.error('UPDATE STATUS ERROR:', err.message);
+        res.status(500).json({ error: 'Failed to update status: ' + err.message });
+    }
+});
+
 // Add Borrower
 app.post('/api/borrowers', authenticateToken, upload.single('evidence'), async (req, res) => {
     const { name, village, age, amount, rate, rateUnit, givenAt } = req.body;

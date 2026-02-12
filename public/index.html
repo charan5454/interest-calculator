@@ -32,6 +32,19 @@
                     <li class="nav-item"><a class="nav-link" href="#" id="nav-calc">Calculator</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" id="nav-borrowers"
                             style="display: none;">Borrowers</a></li>
+                    <li class="nav-item dropdown" id="nav-status-container" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" id="nav-status" role="button"
+                            data-bs-toggle="dropdown">
+                            <i class="fas fa-filter me-1"></i>Status
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark glass-card">
+                            <li><a class="dropdown-item status-filter" href="#" data-status="all">ALL</a></li>
+                            <li><a class="dropdown-item status-filter" href="#" data-status="repaid">YES (Repaid)</a>
+                            </li>
+                            <li><a class="dropdown-item status-filter" href="#" data-status="unpaid">NO (Not Repaid)</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2 px-4 rounded-pill" href="#"
                             data-bs-toggle="modal" data-bs-target="#loginModal" id="btn-login">Login</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2 px-4 rounded-pill" href="#"
@@ -233,6 +246,7 @@
                                     <th>Rate</th>
                                     <th>Given Date</th>
                                     <th>Action</th>
+                                    <th>Is Repaid</th>
                                 </tr>
                             </thead>
                             <tbody>

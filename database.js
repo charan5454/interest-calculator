@@ -43,6 +43,7 @@ const initDb = async () => {
                 rate_unit VARCHAR(20),
                 given_at DATE,
                 evidence_path TEXT,
+                is_repaid BOOLEAN DEFAULT FALSE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `);

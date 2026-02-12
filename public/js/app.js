@@ -59,6 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const navHistory = document.getElementById('nav-history');
     const navBorrowers = document.getElementById('nav-borrowers');
+    const navStatusContainer = document.getElementById('nav-status-container');
+    let currentStatusFilter = 'all';
 
     const bId = document.getElementById('bId');
     const bSubmitBtn = document.getElementById('bSubmitBtn');
@@ -337,11 +339,13 @@ document.addEventListener('DOMContentLoaded', () => {
             btnLogout.style.display = 'block';
             if (navHistory) navHistory.style.display = 'block';
             navBorrowers.style.display = 'block';
+            if (navStatusContainer) navStatusContainer.style.display = 'block';
         } else {
             btnLogin.style.display = 'block';
             btnLogout.style.display = 'none';
             if (navHistory) navHistory.style.display = 'none';
             navBorrowers.style.display = 'none';
+            if (navStatusContainer) navStatusContainer.style.display = 'none';
         }
     }
 
@@ -499,8 +503,38 @@ document.addEventListener('DOMContentLoaded', () => {
         return { years: displayYears, months: displayMonths, days: displayDays, totalDays };
     }
 
+    // Status Filtering Logic
+    document.querySelectorAll('.status-filter').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentStatusFilter = e.target.getAttribute('data-status');
+            loadBorrowers();
+        });
+    });
+
+    window.toggleBorrowerStatus = async (id, isRepaid) => {
+        try {
+            const res = await fetch(`/api/borrowers/${id}/status`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ isRepaid })
+            });
+            if (res.ok) {
+                loadBorrowers();
+            } else {
+                const data = await res.json();
+                alert(data.error || 'Failed to update status');
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     async function loadBorrowers() {
-        borrowerTable.innerHTML = '<tr><td colspan="7" class="text-center">Loading...</td></tr>';
+        borrowerTable.innerHTML = '<tr><td colspan="8" class="text-center">Loading...</td></tr>';
         try {
             const res = await fetch('/api/borrowers', {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
@@ -522,13 +556,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
             borrowerTable.innerHTML = '';
             if (data.length === 0) {
-                borrowerTable.innerHTML = '<tr><td colspan="7" class="text-center">No borrowers found</td></tr>';
+                borrowerTable.innerHTML = '<tr><td colspan="8" class="text-center">No borrowers found</td></tr>';
                 return;
             }
 
             if (data.error) throw new Error(data.error);
 
-            data.forEach(b => {
+            // Apply filtering
+            const filteredData = data.filter(b => {
+                if (currentStatusFilter === 'all') return true;
+                if (currentStatusFilter === 'repaid') return b.is_repaid === true;
+                if (currentStatusFilter === 'unpaid') return b.is_repaid === false;
+                return true;
+            });
+
+            if (filteredData.length === 0) {
+                borrowerTable.innerHTML = '<tr><td colspan="8" class="text-center">No borrowers match this filter</td></tr>';
+                return;
+            }
+
+            filteredData.forEach(b => {
                 // Use a more verbose date to avoid confusion
                 const dateObj = new Date(b.given_at);
                 const options = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -548,6 +595,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="btn btn-sm btn-warning edit-btn" title="Edit" onclick="event.stopPropagation(); editBorrower('${b.id}', '${(b.name || '').replace(/'/g, "\\'")}', '${(b.village || '').replace(/'/g, "\\'")}', '${b.age || ''}', '${b.amount}', '${b.rate}', '${b.rate_unit}', '${b.given_at}')">
                             <i class="fas fa-edit"></i>
                         </button>
+                    </td>
+                    <td>
+                        <select class="form-select form-select-sm bg-dark-input text-white border-0" 
+                                onclick="event.stopPropagation();" 
+                                onchange="toggleBorrowerStatus('${b.id}', this.value === 'yes')">
+                            <option value="no" ${!b.is_repaid ? 'selected' : ''}>NO</option>
+                            <option value="yes" ${b.is_repaid ? 'selected' : ''}>YES</option>
+                        </select>
                     </td>
                 `;
                 row.addEventListener('click', () => populateCalculator(b));
