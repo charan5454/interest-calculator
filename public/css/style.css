@@ -120,6 +120,15 @@ body {
     outline: none;
 }
 
+.bg-dark-input::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Improve date input visibility for some browsers */
+input[type="date"].bg-dark-input {
+    color-scheme: dark;
+}
+
 .input-group-text {
     background: rgba(30, 41, 59, 0.8) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -216,6 +225,7 @@ h5 {
 
 .text-light-50 {
     color: var(--text-secondary) !important;
+    opacity: 0.7;
 }
 
 /* Nav */
@@ -223,6 +233,7 @@ h5 {
     font-weight: 800;
     background: var(--primary-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.5px;
 }
