@@ -175,43 +175,47 @@
                     <div class="card glass-card p-3 mb-4">
                         <h6><i class="fas fa-user-plus me-2"></i>Add New Borrower</h6>
                         <form id="addBorrowerForm" class="row g-3">
+                            <input type="hidden" id="bId" name="bId">
 
                             <div class="col-md-3">
-                                <input type="text" class="form-control bg-dark-input" id="bName" placeholder="Name"
-                                    required>
+                                <input type="text" class="form-control bg-dark-input" id="bName" name="name"
+                                    placeholder="Name" required>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control bg-dark-input" id="bVillage"
+                                <input type="text" class="form-control bg-dark-input" id="bVillage" name="village"
                                     placeholder="Address" required>
                             </div>
                             <div class="col-md-2">
-                                <input type="number" class="form-control bg-dark-input" id="bAge" placeholder="Age"
-                                    required>
+                                <input type="number" class="form-control bg-dark-input" id="bAge" name="age"
+                                    placeholder="Age" required>
                             </div>
                             <div class="col-md-3">
-                                <input type="number" class="form-control bg-dark-input" id="bAmount"
+                                <input type="number" class="form-control bg-dark-input" id="bAmount" name="amount"
                                     placeholder="Amount" required min="0">
                             </div>
                             <div class="col-md-3">
                                 <div class="input-group">
-                                    <input type="number" class="form-control bg-dark-input" id="bRate"
+                                    <input type="number" class="form-control bg-dark-input" id="bRate" name="rate"
                                         placeholder="Rate" required step="0.01">
-                                    <select class="input-group-text bg-dark-input" id="bRateUnit">
+                                    <select class="input-group-text bg-dark-input" id="bRateUnit" name="rateUnit">
                                         <option value="month" selected>₹ / Mo</option>
                                         <option value="year">% / Yr</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <input type="date" class="form-control bg-dark-input" id="bDate" required
+                                <input type="date" class="form-control bg-dark-input" id="bDate" name="givenAt" required
                                     title="Given Date">
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label d-block small opacity-50">Surety Evidence (Optional)</label>
                                 <input type="file" class="form-control bg-dark-input" id="bEvidence" accept="image/*">
                             </div>
-                            <div class="col-md-2 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary w-100 gradient-btn">Add</button>
+                            <div class="col-md-2 d-flex align-items-end gap-2">
+                                <button type="submit" class="btn btn-primary w-100 gradient-btn"
+                                    id="bSubmitBtn">Add</button>
+                                <button type="button" class="btn btn-outline-danger d-none"
+                                    id="bCancelBtn">Cancel</button>
                             </div>
                         </form>
                     </div>

@@ -165,6 +165,34 @@ app.get('/api/history', authenticateToken, async (req, res) => {
     }
 });
 
+// Update Borrower
+app.put('/api/borrowers/:id', authenticateToken, upload.single('evidence'), async (req, res) => {
+    const { id } = req.params;
+    const { name, village, age, amount, rate, rateUnit, givenAt } = req.body;
+    let evidencePath = req.body.existingEvidence || null;
+
+    if (req.file) {
+        evidencePath = `uploads/${req.file.filename}`;
+    }
+
+    try {
+        // Verify ownership
+        const ownerCheck = await db.query('SELECT id FROM borrowers WHERE id = $1 AND user_id = $2', [id, req.user.id]);
+        if (ownerCheck.rows.length === 0) {
+            return res.status(403).json({ error: 'Not authorized to edit this borrower' });
+        }
+
+        await db.query(
+            'UPDATE borrowers SET name = $1, village = $2, age = $3, amount = $4, rate = $5, rate_unit = $6, given_at = $7, evidence_path = $8 WHERE id = $9 AND user_id = $10',
+            [name, village, age, amount, rate, rateUnit, givenAt, evidencePath, id, req.user.id]
+        );
+        res.json({ message: 'Borrower updated successfully' });
+    } catch (err) {
+        console.error('UPDATE BORROWER ERROR:', err.message);
+        res.status(500).json({ error: 'Failed to update borrower: ' + err.message });
+    }
+});
+
 // Add Borrower
 app.post('/api/borrowers', authenticateToken, upload.single('evidence'), async (req, res) => {
     const { name, village, age, amount, rate, rateUnit, givenAt } = req.body;

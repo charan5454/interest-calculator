@@ -60,6 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const navHistory = document.getElementById('nav-history');
     const navBorrowers = document.getElementById('nav-borrowers');
 
+    const bId = document.getElementById('bId');
+    const bSubmitBtn = document.getElementById('bSubmitBtn');
+    const bCancelBtn = document.getElementById('bCancelBtn');
+
     // Borrower Elements
     const borrowerModal = new bootstrap.Modal(document.getElementById('borrowerModal'));
     const addBorrowerForm = document.getElementById('addBorrowerForm');
@@ -409,44 +413,56 @@ document.addEventListener('DOMContentLoaded', () => {
         loadBorrowers();
     });
 
+    bCancelBtn.addEventListener('click', () => {
+        cancelEdit();
+    });
+
+    function cancelEdit() {
+        addBorrowerForm.reset();
+        bId.value = '';
+        bSubmitBtn.textContent = 'Add';
+        bCancelBtn.classList.add('d-none');
+        document.querySelector('#borrowerModal h6').innerHTML = '<i class="fas fa-user-plus me-2"></i>Add New Borrower';
+    }
+
+    window.editBorrower = (id, name, village, age, amount, rate, rateUnit, givenAt) => {
+        bId.value = id;
+        document.getElementById('bName').value = name;
+        document.getElementById('bVillage').value = (village !== 'undefined' && village !== 'null') ? village : '';
+        document.getElementById('bAge').value = (age !== 'undefined' && age !== 'null') ? age : '';
+        document.getElementById('bAmount').value = amount;
+        document.getElementById('bRate').value = rate;
+        document.getElementById('bRateUnit').value = rateUnit;
+
+        const date = new Date(givenAt);
+        const formattedDate = date.toISOString().split('T')[0];
+        document.getElementById('bDate').value = formattedDate;
+
+        bSubmitBtn.textContent = 'Update';
+        bCancelBtn.classList.remove('d-none');
+        document.querySelector('#borrowerModal h6').innerHTML = '<i class="fas fa-edit me-2"></i>Edit Borrower';
+    };
+
     addBorrowerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const name = document.getElementById('bName').value;
-        const village = document.getElementById('bVillage').value;
-        const age = document.getElementById('bAge').value;
-        const amount = document.getElementById('bAmount').value;
-        const rate = document.getElementById('bRate').value;
-        const rateUnit = document.getElementById('bRateUnit').value;
-        const date = document.getElementById('bDate').value;
-        const evidenceFile = document.getElementById('bEvidence').files[0];
-
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('village', village);
-        formData.append('age', age);
-        formData.append('amount', amount);
-        formData.append('rate', rate);
-        formData.append('rateUnit', rateUnit);
-        formData.append('givenAt', date);
-        if (evidenceFile) {
-            formData.append('evidence', evidenceFile);
-        }
+        const formData = new FormData(addBorrowerForm);
+        const id = bId.value;
+        const url = id ? `/api/borrowers/${id}` : '/api/borrowers';
+        const method = id ? 'PUT' : 'POST';
 
         try {
-            const res = await fetch('/api/borrowers', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
+            const res = await fetch(url, {
+                method: method,
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
                 body: formData
             });
-
             if (res.ok) {
-                addBorrowerForm.reset();
+                alert(id ? 'Borrower updated!' : 'Borrower added!');
+                cancelEdit();
                 loadBorrowers();
             } else {
                 const data = await res.json();
-                alert('Failed to add borrower: ' + (data.error || 'Unknown error'));
+                alert(data.error || 'Operation failed');
             }
         } catch (err) {
             console.error(err);
@@ -527,7 +543,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>₹${parseFloat(b.amount).toLocaleString()}</td>
                     <td>${b.rate} (${b.rate_unit === 'month' ? '₹/Mo' : '%/Yr'})</td>
                     <td>${displayDate}</td>
-                    <td class="text-center"><button class="btn btn-sm btn-info calc-btn"><i class="fas fa-calculator"></i></button></td>
+                    <td class="text-center d-flex gap-2 justify-content-center">
+                        <button class="btn btn-sm btn-info calc-btn" title="Calculate"><i class="fas fa-calculator"></i></button>
+                        <button class="btn btn-sm btn-warning edit-btn" title="Edit" onclick="event.stopPropagation(); editBorrower('${b.id}', '${(b.name || '').replace(/'/g, "\\'")}', '${(b.village || '').replace(/'/g, "\\'")}', '${b.age || ''}', '${b.amount}', '${b.rate}', '${b.rate_unit}', '${b.given_at}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
                 `;
                 row.addEventListener('click', () => populateCalculator(b));
                 borrowerTable.appendChild(row);
