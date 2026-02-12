@@ -331,12 +331,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentUser) {
             btnLogin.style.display = 'none';
             btnLogout.style.display = 'block';
-            navHistory.style.display = 'block';
+            if (navHistory) navHistory.style.display = 'block';
             navBorrowers.style.display = 'block';
         } else {
             btnLogin.style.display = 'block';
             btnLogout.style.display = 'none';
-            navHistory.style.display = 'none';
+            if (navHistory) navHistory.style.display = 'none';
             navBorrowers.style.display = 'none';
         }
     }
@@ -359,42 +359,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Fetch History
-    navHistory.addEventListener('click', async (e) => {
-        e.preventDefault();
-        if (!currentUser) return;
+    if (navHistory) {
+        navHistory.addEventListener('click', async (e) => {
+            e.preventDefault();
+            if (!currentUser) return;
 
-        const historyModal = new bootstrap.Modal(document.getElementById('historyModal'));
-        historyModal.show();
+            const historyModal = new bootstrap.Modal(document.getElementById('historyModal'));
+            historyModal.show();
 
-        const tbody = document.querySelector('#historyTable tbody');
-        tbody.innerHTML = '<tr><td colspan="4" class="text-center">Loading...</td></tr>';
+            const tbody = document.querySelector('#historyTable tbody');
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center">Loading...</td></tr>';
 
-        try {
-            const res = await fetch('/api/history', {
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-            });
-            const data = await res.json();
+            try {
+                const res = await fetch('/api/history', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                const data = await res.json();
 
-            tbody.innerHTML = '';
-            if (data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center">No history found</td></tr>';
-                return;
-            }
+                tbody.innerHTML = '';
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center">No history found</td></tr>';
+                    return;
+                }
 
-            data.forEach(item => {
-                const row = `<tr>
+                data.forEach(item => {
+                    const row = `<tr>
                     <td>${new Date(item.created_at).toLocaleDateString()}</td>
                     <td>${item.type}</td>
                     <td>${item.principal}</td>
                     <td>${JSON.parse(item.result).total.toFixed(2)}</td>
                 </tr>`;
-                tbody.innerHTML += row;
-            });
+                    tbody.innerHTML += row;
+                });
 
-        } catch (err) {
-            tbody.innerHTML = '<tr><td colspan="4" class="text-center text-danger">Failed to load history</td></tr>';
-        }
-    });
+            } catch (err) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-danger">Failed to load history</td></tr>';
+            }
+        });
+    }
 
     // --- Borrower Logic ---
 
