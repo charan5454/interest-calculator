@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const navHistory = document.getElementById('nav-history');
     const navBorrowers = document.getElementById('nav-borrowers');
-    const navStatusContainer = document.getElementById('nav-status-container');
     let currentStatusFilter = 'all';
 
     const bId = document.getElementById('bId');
@@ -339,13 +338,11 @@ document.addEventListener('DOMContentLoaded', () => {
             btnLogout.style.display = 'block';
             if (navHistory) navHistory.style.display = 'block';
             navBorrowers.style.display = 'block';
-            if (navStatusContainer) navStatusContainer.style.display = 'block';
         } else {
             btnLogin.style.display = 'block';
             btnLogout.style.display = 'none';
             if (navHistory) navHistory.style.display = 'none';
             navBorrowers.style.display = 'none';
-            if (navStatusContainer) navStatusContainer.style.display = 'none';
         }
     }
 
@@ -507,7 +504,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.status-filter').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            currentStatusFilter = e.target.getAttribute('data-status');
+            const status = e.target.getAttribute('data-status');
+            currentStatusFilter = status;
+
+            // Update the filter button text to show current selection
+            const btnText = status === 'all' ? 'ALL' : (status === 'repaid' ? 'YES (Repaid)' : 'NO (Not Repaid)');
+            document.getElementById('statusFilterBtn').innerHTML = `<i class="fas fa-filter me-1"></i>Status: ${btnText}`;
+
             loadBorrowers();
         });
     });
