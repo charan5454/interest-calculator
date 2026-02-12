@@ -46,6 +46,9 @@ const initDb = async () => {
                 is_repaid BOOLEAN DEFAULT FALSE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
+
+            // Add is_repaid column if it doesn't exist (Migration)
+            await client.query('ALTER TABLE borrowers ADD COLUMN IF NOT EXISTS is_repaid BOOLEAN DEFAULT FALSE');
         `);
         console.log('PostgreSQL tables initialized');
         client.release();
