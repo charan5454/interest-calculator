@@ -73,7 +73,7 @@
                                         <option value="£">£</option>
                                     </select>
                                     <input type="number" class="form-control bg-dark-input" id="principal"
-                                        placeholder="10000" required min="0">
+                                        placeholder="10000" value="0" required min="0">
                                 </div>
                             </div>
 
@@ -82,10 +82,10 @@
                                     <label class="form-label">Rate</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control bg-dark-input" id="rate"
-                                            placeholder="5.5" required step="0.01" min="0">
+                                            placeholder="5.5" value="0" required step="0.01" min="0">
                                         <select class="input-group-text bg-dark-input" id="rateUnit">
+                                            <option value="month" selected>₹ / Mo</option>
                                             <option value="year">% / Yr</option>
-                                            <option value="month">₹ / Mo</option>
                                         </select>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                     <label class="form-label">Time</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control bg-dark-input" id="time"
-                                            placeholder="5" required min="0" step="any">
+                                            placeholder="5" value="0" required min="0" step="any">
                                         <select class="input-group-text bg-dark-input" id="timeUnit">
                                             <option value="years">Years</option>
                                             <option value="months">Months</option>
@@ -188,21 +188,21 @@
                             </div>
                             <div class="col-md-2">
                                 <input type="number" class="form-control bg-dark-input" id="bAge" placeholder="Age"
-                                    required>
+                                    value="0" required>
                             </div>
                             <div class="col-md-4">
                                 <input type="date" class="form-control bg-dark-input" id="bDate" required>
                             </div>
                             <div class="col-md-3">
                                 <input type="number" class="form-control bg-dark-input" id="bAmount"
-                                    placeholder="Amount" required min="0">
+                                    placeholder="Amount" value="0" required min="0">
                             </div>
                             <div class="col-md-3">
                                 <div class="input-group">
                                     <input type="number" class="form-control bg-dark-input" id="bRate"
-                                        placeholder="Rate" required step="0.01">
+                                        placeholder="Rate" value="0" required step="0.01">
                                     <select class="input-group-text bg-dark-input" id="bRateUnit">
-                                        <option value="month">₹ / Mo</option>
+                                        <option value="month" selected>₹ / Mo</option>
                                         <option value="year">% / Yr</option>
                                     </select>
                                 </div>
