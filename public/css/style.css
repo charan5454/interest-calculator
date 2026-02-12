@@ -121,7 +121,8 @@ body {
 }
 
 .bg-dark-input::placeholder {
-    color: rgba(255, 255, 255, 0.45) !important;
+    color: #4ade80 !important;
+    opacity: 0.9 !important;
 }
 
 /* Improve date input visibility for some browsers */
