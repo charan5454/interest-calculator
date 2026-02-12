@@ -32,8 +32,6 @@
                     <li class="nav-item"><a class="nav-link" href="#" id="nav-calc">Calculator</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" id="nav-borrowers"
                             style="display: none;">Borrowers</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" id="nav-history"
-                            style="display: none;">History</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2 px-4 rounded-pill" href="#"
                             data-bs-toggle="modal" data-bs-target="#loginModal" id="btn-login">Login</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2 px-4 rounded-pill" href="#"
@@ -184,23 +182,23 @@
                             </div>
                             <div class="col-md-3">
                                 <input type="text" class="form-control bg-dark-input" id="bVillage"
-                                    placeholder="Village" required>
+                                    placeholder="Address" required>
                             </div>
                             <div class="col-md-2">
                                 <input type="number" class="form-control bg-dark-input" id="bAge" placeholder="Age"
-                                    value="0" required>
+                                    required>
                             </div>
                             <div class="col-md-4">
                                 <input type="date" class="form-control bg-dark-input" id="bDate" required>
                             </div>
                             <div class="col-md-3">
                                 <input type="number" class="form-control bg-dark-input" id="bAmount"
-                                    placeholder="Amount" value="0" required min="0">
+                                    placeholder="Amount" required min="0">
                             </div>
                             <div class="col-md-3">
                                 <div class="input-group">
                                     <input type="number" class="form-control bg-dark-input" id="bRate"
-                                        placeholder="Rate" value="0" required step="0.01">
+                                        placeholder="Rate" required step="0.01">
                                     <select class="input-group-text bg-dark-input" id="bRateUnit">
                                         <option value="month" selected>₹ / Mo</option>
                                         <option value="year">% / Yr</option>
@@ -224,7 +222,7 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Village</th>
+                                    <th>Address</th>
                                     <th>Age</th>
                                     <th>Amount</th>
                                     <th>Rate</th>
