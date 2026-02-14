@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box !important;
+    box-sizing: border-box;
 }
 
 :root {
@@ -101,7 +101,6 @@ body {
     border-radius: 24px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
     margin-bottom: 24px;
 }
 
@@ -126,10 +125,6 @@ body {
     border-color: var(--accent-cyan) !important;
     box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.1) !important;
     outline: none;
-}
-
-.input-group {
-    flex-wrap: wrap;
 }
 
 .input-group-text {
@@ -212,19 +207,5 @@ h5 {
     .gradient-btn {
         width: 100%;
         padding: 12px 20px;
-    }
-}
-
-/* Fix for borrower settlement detail row */
-#borrowerCalcResult .row>div {
-    margin-bottom: 1rem;
-}
-
-/* Fix for add borrower form on small screens */
-@media (max-width: 768px) {
-
-    #addBorrowerForm .col-md-3,
-    #addBorrowerForm .col-md-2 {
-        width: 100% !important;
     }
 }
