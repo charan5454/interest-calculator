@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 }
 
 :root {
@@ -14,22 +14,42 @@
     --accent-purple: #c084fc;
 }
 
+html,
 body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     color: var(--text-primary);
     background-color: #020617;
-    overflow-x: hidden;
-    margin: 0;
-    width: 100%;
 }
 
 /* Ensure containers are responsive */
 .container,
 .container-fluid {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+}
+
+/* Row and Flexbox Fixes */
+.row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-left: -8px !important;
+    margin-right: -8px !important;
+}
+
+.row>[class*="col-"] {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    max-width: 100% !important;
 }
 
 /* Dynamic Animated Background */
@@ -111,22 +131,23 @@ body {
     border-radius: 24px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
-}
-
-.glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 24px !important;
 }
 
 /* Inputs & Form Elements */
-.bg-dark-input {
+.bg-dark-input,
+.form-control,
+.form-select {
     background: rgba(15, 23, 42, 0.6) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 12px !important;
     color: var(--text-primary) !important;
     padding: 12px 16px !important;
     transition: all 0.3s ease !important;
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 .bg-dark-input:focus {
@@ -136,18 +157,16 @@ body {
     outline: none;
 }
 
-.bg-dark-input::placeholder {
-    color: #4ade80 !important;
-    opacity: 0.9 !important;
-}
-
-/* Improve date input visibility */
-input[type="date"].bg-dark-input {
-    color-scheme: dark;
-}
-
 .input-group {
-    flex-wrap: wrap;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.input-group>select,
+.input-group>input {
+    flex: 1 1 auto !important;
 }
 
 .input-group-text {
@@ -168,109 +187,122 @@ input[type="date"].bg-dark-input {
     letter-spacing: 0.5px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
-    width: 100%;
-}
-
-.gradient-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
-    filter: brightness(1.1);
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 /* Tables */
 .table-responsive {
     border-radius: 16px;
-    overflow: hidden;
-    width: 100%;
+    overflow-x: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 1rem;
 }
 
 .table {
     margin-bottom: 0;
     color: var(--text-secondary) !important;
-    width: 100%;
+    width: 100% !important;
 }
 
-.table thead th {
-    background: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    color: var(--text-primary);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    padding: 16px;
-}
-
-.table tbody td {
-    background: transparent;
-    padding: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-    vertical-align: middle;
-}
-
-/* Custom Modal */
+/* Modal Fixes */
 .glass-modal {
     background: rgba(15, 23, 42, 0.9);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 28px;
-    width: 95%;
-    margin: 10px auto;
+    width: 95% !important;
+    max-width: 100% !important;
+    margin: 10px auto !important;
 }
 
-/* Typography */
-h2,
-h3,
-h4,
-h5 {
-    color: var(--text-primary);
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    word-wrap: break-word;
+/* Navigation */
+.navbar {
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
-/* Nav */
 .navbar-brand {
     font-weight: 800;
     word-wrap: break-word;
-    max-width: 80%;
+    white-space: normal !important;
+    max-width: 70% !important;
 }
 
+/* Mobile Alignment Fixes */
 @media (max-width: 576px) {
-    .navbar-brand {
-        font-size: 1.1rem;
+    .container {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
     }
 
     .glass-card {
-        padding: 1.5rem !important;
+        padding: 1rem !important;
         border-radius: 16px;
     }
 
-    .gradient-btn {
-        padding: 12px 20px;
+    h2 {
+        font-size: 1.5rem !important;
     }
 
-    .modal-dialog {
-        margin: 0.5rem;
+    h3 {
+        font-size: 1.25rem !important;
+    }
+
+    .input-group-text {
+        padding: 0.5rem !important;
+    }
+
+    /* Specifically for 360px */
+    @media (max-width: 360px) {
+        .navbar-brand {
+            font-size: 0.9rem !important;
+        }
+
+        .gradient-btn {
+            padding: 10px 15px !important;
+        }
+
+        .glass-card {
+            padding: 0.75rem !important;
+        }
     }
 }
 
-/* Prevent horizontal scroll */
-html,
-body {
-    max-width: 100%;
-    overflow-x: hidden;
+/* Ensure no element can exceed screen width */
+* {
+    max-width: 100% !important;
 }
 
-/* Fix for borrower settlement detail row in mobile */
+video,
+img,
+canvas {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Fix for borrower settlement detail row */
 #borrowerCalcResult .row>div {
     margin-bottom: 1rem;
+    width: 100% !important;
 }
 
-/* Fix for add borrower form on small screens */
+@media (min-width: 768px) {
+    #borrowerCalcResult .row>div {
+        width: 25% !important;
+    }
+
+    .gradient-btn {
+        width: auto !important;
+    }
+}
+
+/* Fix for add borrower form */
 #addBorrowerForm .col-md-3,
 #addBorrowerForm .col-md-2 {
     width: 100% !important;
+    margin-bottom: 10px;
 }
 
 @media (min-width: 768px) {
@@ -279,10 +311,6 @@ body {
     }
 
     #addBorrowerForm .col-md-2 {
-        width: 16.66% !important;
-    }
-
-    .gradient-btn {
-        width: auto;
+        width: 16.6% !important;
     }
 }
