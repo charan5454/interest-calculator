@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --primary-gradient: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
     --accent-gradient: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
@@ -16,6 +20,16 @@ body {
     background-color: #020617;
     overflow-x: hidden;
     margin: 0;
+    width: 100%;
+}
+
+/* Ensure containers are responsive */
+.container,
+.container-fluid {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 /* Dynamic Animated Background */
@@ -97,6 +111,7 @@ body {
     border-radius: 24px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
 }
 
 .glass-card:hover {
@@ -111,6 +126,7 @@ body {
     color: var(--text-primary) !important;
     padding: 12px 16px !important;
     transition: all 0.3s ease !important;
+    width: 100%;
 }
 
 .bg-dark-input:focus {
@@ -125,9 +141,13 @@ body {
     opacity: 0.9 !important;
 }
 
-/* Improve date input visibility for some browsers */
+/* Improve date input visibility */
 input[type="date"].bg-dark-input {
     color-scheme: dark;
+}
+
+.input-group {
+    flex-wrap: wrap;
 }
 
 .input-group-text {
@@ -148,6 +168,7 @@ input[type="date"].bg-dark-input {
     letter-spacing: 0.5px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    width: 100%;
 }
 
 .gradient-btn:hover {
@@ -156,14 +177,17 @@ input[type="date"].bg-dark-input {
     filter: brightness(1.1);
 }
 
-.gradient-btn:active {
-    transform: translateY(0);
+/* Tables */
+.table-responsive {
+    border-radius: 16px;
+    overflow: hidden;
+    width: 100%;
 }
 
-/* Tables */
 .table {
     margin-bottom: 0;
     color: var(--text-secondary) !important;
+    width: 100%;
 }
 
 .table thead th {
@@ -184,34 +208,14 @@ input[type="date"].bg-dark-input {
     vertical-align: middle;
 }
 
-.table-hover tbody tr:hover td {
-    background: rgba(255, 255, 255, 0.02) !important;
-    color: var(--text-primary) !important;
-}
-
 /* Custom Modal */
 .glass-modal {
     background: rgba(15, 23, 42, 0.9);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 28px;
-}
-
-/* Animations */
-.animate-fade-in {
-    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    width: 95%;
+    margin: 10px auto;
 }
 
 /* Typography */
@@ -222,47 +226,63 @@ h5 {
     color: var(--text-primary);
     font-weight: 700;
     letter-spacing: -0.025em;
-}
-
-.text-light-50 {
-    color: var(--text-secondary) !important;
-    opacity: 0.7;
+    word-wrap: break-word;
 }
 
 /* Nav */
 .navbar-brand {
     font-weight: 800;
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.5px;
+    word-wrap: break-word;
+    max-width: 80%;
 }
 
-.nav-link {
-    color: var(--text-secondary) !important;
-    font-weight: 500;
-    transition: color 0.3s ease;
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .glass-card {
+        padding: 1.5rem !important;
+        border-radius: 16px;
+    }
+
+    .gradient-btn {
+        padding: 12px 20px;
+    }
+
+    .modal-dialog {
+        margin: 0.5rem;
+    }
 }
 
-.nav-link:hover {
-    color: var(--text-primary) !important;
+/* Prevent horizontal scroll */
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
+/* Fix for borrower settlement detail row in mobile */
+#borrowerCalcResult .row>div {
+    margin-bottom: 1rem;
 }
 
-::-webkit-scrollbar-track {
-    background: transparent;
+/* Fix for add borrower form on small screens */
+#addBorrowerForm .col-md-3,
+#addBorrowerForm .col-md-2 {
+    width: 100% !important;
 }
 
-::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-}
+@media (min-width: 768px) {
+    #addBorrowerForm .col-md-3 {
+        width: 25% !important;
+    }
 
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
+    #addBorrowerForm .col-md-2 {
+        width: 16.66% !important;
+    }
+
+    .gradient-btn {
+        width: auto;
+    }
 }
