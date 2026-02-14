@@ -192,6 +192,27 @@ h5 {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.5px;
+    white-space: normal !important;
+    max-width: 80%;
+}
+
+.bg-dark-glass {
+    background: rgba(2, 6, 23, 0.8) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        margin-top: 15px;
+        padding: 20px;
+        border-radius: 20px;
+        border: 1px solid var(--glass-border);
+    }
 }
 
 @media (max-width: 576px) {
@@ -200,7 +221,7 @@ h5 {
     }
 
     .glass-card {
-        padding: 1.5rem !important;
+        padding: 1rem !important;
         border-radius: 16px;
     }
 
