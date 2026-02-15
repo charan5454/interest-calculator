@@ -228,7 +228,8 @@ h5 {
 
 @media (max-width: 576px) {
     .navbar-brand {
-        font-size: 1.0rem !important;
+        font-size: 1.4rem !important;
+        padding-top: 15px !important;
     }
 
     .glass-card {
