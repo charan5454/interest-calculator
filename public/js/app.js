@@ -266,10 +266,10 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.text(`Time: ${document.getElementById('time').value} ${document.getElementById('timeUnit').value}`, 20, 70);
 
         doc.text("------------------------------------------------", 20, 80);
-        doc.text(`Total Interest: ${resInterest.textContent}`, 20, 90);
-        doc.text(`Total Amount: ${resTotal.textContent}`, 20, 100);
+        doc.text(`Total Interest: ${resInterest.textContent.replace('₹', 'Rs.')}`, 20, 90);
+        doc.text(`Total Amount: ${resTotal.textContent.replace('₹', 'Rs.')}`, 20, 100);
         if (typeSelect.value === 'emi') {
-            doc.text(`Monthly EMI: ${resEMI.textContent}`, 20, 110);
+            doc.text(`Monthly EMI: ${resEMI.textContent.replace('₹', 'Rs.')}`, 20, 110);
         }
 
         doc.save("calculation-report.pdf");
@@ -701,5 +701,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(err => console.error('Service Worker registration failed', err));
         });
     }
+
+    // Auto-close bootstrap navbar on mobile when a link is clicked
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const menuToggle = document.getElementById('navbarNav');
+    const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false });
+
+    navLinks.forEach((l) => {
+        l.addEventListener('click', () => {
+            if (window.innerWidth < 992) {
+                bsCollapse.hide();
+            }
+        });
+    });
 
 });
