@@ -128,6 +128,15 @@ body {
     font-weight: 500;
 }
 
+::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+    opacity: 1 !important;
+}
+
+::-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
 .bg-dark-input:focus {
     background: rgba(15, 23, 42, 0.8) !important;
     border-color: var(--accent-cyan) !important;

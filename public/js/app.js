@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let total = pAmount + interest;
 
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        const bDateStr = new Date(currentBorrower.given_at).toLocaleDateString(undefined, options);
-        const todayStr = new Date().toLocaleDateString(undefined, options);
+        const bDateStr = new Date(currentBorrower.given_at).toDateString();
+        const todayStr = new Date().toDateString();
 
         doc.setFontSize(22);
         doc.setTextColor(40, 44, 52);
@@ -127,9 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         doc.setFontSize(10);
         doc.setTextColor(150);
-        doc.text(`Report generated on: ${new Date().toLocaleString()}`, 20, 280);
+        doc.text(`Report generated on: ${new Date().toDateString()}`, 20, 280);
 
-        doc.save(`${currentBorrower.name}_settlement.pdf`);
+        const safeFilename = `${currentBorrower.name.replace(/[^a-zA-Z0-9 ]/g, "_")}_settlement.pdf`;
+        doc.save(safeFilename);
     });
 
     // --- Calculator Logic ---
